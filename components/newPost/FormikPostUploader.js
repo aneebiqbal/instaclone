@@ -11,17 +11,21 @@ const uploadPostSchema = Yup.object().shape({
     caption: Yup.string().max(2200, 'Caption has reached its max length')
 })
 
-const FormikPostUploader = () => {
+const FormikPostUploader = ({navigation}) => {
     const [thumbnilUrl ,setThumbnilUrl] = useState(PLACEHOLDER_IMG)
   return (
     <Formik
-    initialValues={{caption:'',imageUrl:''}}
-    onSubmit={(values) => console.log(values)}
-    validationSchema={uploadPostSchema}
-    validateOnMount={true}
-    >
+        initialValues={{caption:'',imageUrl:''}}
+        onSubmit={values => {
+            console.log(values)
+            console.log('your post has been submitted successfully.')
+            navigation.goBack()
+        }}
+            validationSchema={uploadPostSchema}
+            validateOnMount={true}
+        >
         {({handleBlur, handleChange, handleSubmit, values, errors, isValid})=>
-            <>
+            <> 
                 <View style={{margin:20, justifyContent:'space-between', flexDirection:'row'}}>
                     <Image source={{uri: thumbnilUrl ? thumbnilUrl : PLACEHOLDER_IMG}}
                            style={{width:100, height:100}}
@@ -54,12 +58,16 @@ const FormikPostUploader = () => {
                             {errors.imageUrl}
                         </Text>
                     )}
-                    <Button onPress={handleSubmit} title='Share' disabled={!isValid}/>
+                    <Button 
+                        onPress={handleSubmit}
+                        title='Share' 
+                        disabled={!isValid}
+                        />
 
             </>
         }
     </Formik>
-  )
+    )
 }
 
 export default FormikPostUploader

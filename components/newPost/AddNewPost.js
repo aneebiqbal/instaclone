@@ -2,17 +2,17 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'r
 import React from 'react'
 import FormikPostUploader from './FormikPostUploader'
 
-const AddNewPost=() =>(
+const AddNewPost=({navigation}) =>(
     <View style={styles.container}>
-        <Header/>
-        <FormikPostUploader/>
+        <Header navigation={navigation}/>
+        <FormikPostUploader navigation={navigation}/>
     </View>
 )
 
-const Header = () => {
+const Header = ({navigation}) => {
   return (
     <View style={styles.headContainer}>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={{uri: 'https://img.icons8.com/ios-glyphs/90/ffffff/back.png'}} 
                 style={{width:30, height:30}}/>
         </TouchableOpacity>
